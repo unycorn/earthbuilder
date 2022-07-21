@@ -1,0 +1,49 @@
+X then Z then Y
+
+increases first to increases last
+
+00010001
+00001111
+
+x    y  z
+6969 90 6969
+
+section = floor(y/16)
+
+chunk_x = floor(x/16)
+chunk_z = floor(z/16)
+
+xyz within chunk = xyz % 16
+
+region_x = chunk_x >> 5
+region_z = chunk_z >> 5
+
+chunk_number = (z * 16) + x
+
+block_number_in_chunk = (y * 256) + (z * 16) + x
+blocks_per_int = 64 / bits
+
+int_where_block_is_found = floor(block_number_in_chunk/blocks_per_int)
+block_within_int = block_number_in_chunk % blocks_per_int
+
+1111 1111 1111 1111
+          1010
+
+  1111 1111 1101 1111
+& 1111 1111 0000 1111  (2^16 - 1) - (2^8 - 1) + (2^4 - 1)
+
+  1111 1111 0000 1111
+| 0000 0000 1010 0000  1010 << 4
+
+mask = (2*64 - 1) - (2^(bits * (pos + 1)) - 1) + (2^(bits * (pos)) - 1)
+for 1st pos in 4bit that's
+(2*64 - 1) - (2^8 - 1) + (2^4 - 1)
+
+
+
+2^4 - 1  <<  bits * pos
+11110000
+
+1111 1111 1101 1111
+0000 0000 1111 0000
+
